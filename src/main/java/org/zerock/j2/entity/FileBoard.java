@@ -39,7 +39,7 @@ public class FileBoard {
     private String writer;
 
     @BatchSize(size = 20)
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.LAZY)
+    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "board")
     @Builder.Default
     private List<FileBoardImage> images = new ArrayList<>();
@@ -54,6 +54,11 @@ public class FileBoard {
         boardImage.changeOrd((images.size()));
         images.add(boardImage);
         // 여기까지가 추가.
+    }
+
+    public void cleanImages() {
+        images.clear();
+        // 이게 지금 게시판을 수정하는 방식.
     }
     
 }
