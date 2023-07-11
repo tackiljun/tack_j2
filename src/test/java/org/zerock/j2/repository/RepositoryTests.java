@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
+import org.zerock.j2.dto.PageRequestDTO;
 import org.zerock.j2.entity.FileBoard;
 import org.zerock.j2.entity.FileBoardImage;
 
@@ -84,5 +85,14 @@ public class RepositoryTests {
         System.out.println(board);
         System.out.println(board.getImages());
         });
+    }
+
+    @Transactional
+    @Test
+    public void testListQuerydsl() {
+
+        PageRequestDTO requestDTO = new PageRequestDTO();
+
+        repository.list(requestDTO);
     }
 };

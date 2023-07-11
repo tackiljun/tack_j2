@@ -36,6 +36,9 @@ dependencies {
    annotationProcessor 'org.projectlombok:lombok'
    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
+   // Querydsl 관련 설정2
+   implementation "com.querydsl:querydsl-jpa:${queryDslVersion}:jakarta"
+
    // sweagger ui
    // https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui
    implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.1.0'
@@ -64,10 +67,13 @@ sourceSets {
     }
 }
 
+task deleteBuild(type: Delete) {
+	delete "$projectDir/bin/generated-sources/annotations"
+}
+
 // compileJava전에  clean작업 해달라고하는것
 // 3버전 전용이지 2버전 용이아니다.
 // compileJava.dependsOn('clean')
 // compileTestJava.dependsOn('clean')
+compileJava.dependsOn('deleteBuild','clean')
 
-//compileJava.dependsOn('deleteBuild', 'clean')
-//compileTestJava.dependsOn('clean')
