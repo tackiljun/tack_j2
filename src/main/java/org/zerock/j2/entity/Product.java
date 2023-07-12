@@ -4,13 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-import lombok.core.*;
-import net.bytebuddy.dynamic.TypeResolutionStrategy.Lazy;
+import lombok.*;
+
 
 
 @Entity
@@ -44,6 +39,10 @@ public class Product {
 
     public void clearImages() {
         images.clear();
+    }
+
+    public void changePrice(int price) {
+        this.price = price;
     }
 
 
