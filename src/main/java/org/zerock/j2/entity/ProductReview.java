@@ -3,6 +3,7 @@ package org.zerock.j2.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+
 @Entity
 @Getter
 @ToString(exclude = "product")

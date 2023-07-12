@@ -97,4 +97,16 @@ public class ProductTests {
             System.out.println(dto);
         }
     }
+
+    @Test
+    public void testList2() {
+
+        PageRequestDTO requestDTO = new PageRequestDTO();
+
+        PageResponseDTO<ProductListDTO> result = repo.listWithReview(requestDTO);
+
+        for(ProductListDTO dto : result.getDtoList()) {
+            System.out.println(dto);
+        }
+    }
 }

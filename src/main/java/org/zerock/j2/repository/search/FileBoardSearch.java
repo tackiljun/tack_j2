@@ -9,4 +9,6 @@ public interface FileBoardSearch {
 
     PageResponseDTO<FileBoardListDTO> list(PageRequestDTO pageRequestDTO);
 
+
+
 }
