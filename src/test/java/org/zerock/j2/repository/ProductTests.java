@@ -26,9 +26,9 @@ public class ProductTests {
     //     for(int i = 0; i < 200; i++) {
 
     //         Product product = Product.builder()
-    //         .pname("test")
-    //         .pdesc("TEST")
-    //         .writer("user00")
+    //         .pname("test"+i)
+    //         .pdesc("TEST"+i)
+    //         .writer("user00"+i)
     //         .price(4000)
     //         .build();
 
