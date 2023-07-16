@@ -41,7 +41,7 @@ public class ProductController {
     } 
 
     @GetMapping(value = "list")
-    public PageResponseDTO<ProductListDTO> list(PageRequestDTO pageRequestDTO){
+    public PageResponseDTO<ProductListDTO> list(PageRequestDTO pageRequestDTO) {
 
         log.info("------------------------------");
         log.info(pageRequestDTO);
@@ -52,7 +52,7 @@ public class ProductController {
     @GetMapping("{pno}")
     public ProductDTO getOne(@PathVariable("pno") Long pno) {
 
-        log.info("PNO.......--------------------------------..");
+        log.info("----------PNO----------");
 
         log.info("PNO.........." + pno);
         log.info("PNO.........." + pno);
@@ -74,11 +74,12 @@ public class ProductController {
     @PostMapping("modify")
     public Map<String, Long> modify(ProductDTO productDTO) {
 
-        log.info("------------modify-------------");
-        log.info("------------modify-------------");
-        log.info("------------modify-------------");
+        log.info("----------modify----------");
+        log.info("----------modify----------");
+        log.info("----------modify----------");
         log.info(productDTO);
 
+        // 기존파일에 새파일까지 추가배열.
         if(productDTO.getFiles() != null && productDTO.getFiles().size() > 0) {
 
             List<String> uploadFileNames = uploader.uploadFiles(productDTO.getFiles(), true);
@@ -88,8 +89,7 @@ public class ProductController {
             uploadFileNames.forEach(fname -> oldFileNames.add(fname));
         }
 
-
-        log.info("AFTER--------------------------");
+        log.info("----------AFTER----------");
         log.info(productDTO);
 
         service.modify(productDTO);

@@ -2,8 +2,10 @@ package org.zerock.j2.dto;
 
 import lombok.Data;
 
+
 @Data
 public class ProductListDTO {
+    // 목록 가져오는 DTO.
 
     private Long pno;
     private String pname;
@@ -14,5 +16,4 @@ public class ProductListDTO {
     private long reviewCnt;
 
     private double reviewAvg;
-    
 }

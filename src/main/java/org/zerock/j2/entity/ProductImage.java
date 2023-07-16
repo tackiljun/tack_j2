@@ -7,7 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-@Embeddable
+
+@Embeddable  // 자동으로 FK생성.
 @Getter
 @ToString
 @AllArgsConstructor
@@ -18,5 +19,4 @@ public class ProductImage {
     private String fname;
 
     private int ord;
-    
 }

@@ -39,12 +39,13 @@ public class ProductSearchImpl extends QuerydslRepositorySupport implements Prod
         query.where(productImage.ord.eq(0));
         query.where(product.delFlag.eq(Boolean.FALSE));
 
-
         int pageNum = pageRequestDTO.getPage() <= 0? 0: pageRequestDTO.getPage() -1;
 
         Pageable pageable =
-            PageRequest.of(pageNum, pageRequestDTO.getSize(),
-            Sort.by("pno").descending());
+            PageRequest.of(
+                    pageNum,
+                    pageRequestDTO.getSize(),
+                    Sort.by("pno").descending());
 
             this.getQuerydsl().applyPagination(pageable, query);
 
@@ -56,6 +57,7 @@ public class ProductSearchImpl extends QuerydslRepositorySupport implements Prod
                      product.price,
                      productImage.fname)
                     );
+
             List<ProductListDTO> dtoList = dtoQuery.fetch();
 
             long totalCount = dtoQuery.fetchCount();
@@ -75,28 +77,31 @@ public class ProductSearchImpl extends QuerydslRepositorySupport implements Prod
         query.leftJoin(review).on(review.product.eq(product));
 
         query.where(productImage.ord.eq(0));
-
+        query.where(product.delFlag.eq(Boolean.FALSE));
 
         int pageNum = pageRequestDTO.getPage() <= 0? 0: pageRequestDTO.getPage() -1;
 
         Pageable pageable =
-            PageRequest.of(pageNum, pageRequestDTO.getSize(),
-            Sort.by("pno").descending());
+            PageRequest.of(
+                    pageNum,
+                    pageRequestDTO.getSize(),
+                    Sort.by("pno").descending());
 
             this.getQuerydsl().applyPagination(pageable, query);
 
             query.groupBy(product);
 
             JPQLQuery<ProductListDTO> dtoQuery =
-                query.select(
-                    Projections.bean(ProductListDTO.class,
-                     product.pno,
-                     product.pname,
-                     product.price,
-                     productImage.fname.min().as("fname"),
-                     review.score.avg().as("reviewAvg"),
-                     review.count().as("reviewCnt"))
+                query.select(Projections.bean(
+                        ProductListDTO.class,
+                        product.pno,
+                        product.pname,
+                        product.price,
+                        productImage.fname.min().as("fname"),
+                        review.score.avg().as("reviewAvg"),
+                        review.count().as("reviewCnt"))
                 );
+
             List<ProductListDTO> dtoList = dtoQuery.fetch();
 
             long totalCount = dtoQuery.fetchCount();

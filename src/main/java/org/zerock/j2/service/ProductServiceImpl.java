@@ -19,9 +19,8 @@ import java.util.stream.Collectors;
 @Log4j2
 public class ProductServiceImpl implements ProductService {
 
-    public final ProductRepository productRepository;
-
-    private  final FileUploader fileUploader;
+    private final ProductRepository productRepository;
+    private final FileUploader fileUploader;
 
     @Override
     public PageResponseDTO<ProductListDTO> list(PageRequestDTO requestDTO) {
@@ -43,7 +42,6 @@ public class ProductServiceImpl implements ProductService {
         });
 
         return productRepository.save(product).getPno();
-
     }
 
     @Override
@@ -56,7 +54,8 @@ public class ProductServiceImpl implements ProductService {
                 .pname(product.getPname())
                 .price(product.getPrice())
                 .pdesc(product.getPdesc())
-                .images(product.getImages().stream().map(pi -> pi.getFname()).collect(Collectors.toList()))
+                .images(product.getImages().stream().map(pi
+                        -> pi.getFname()).collect(Collectors.toList()))
                 .build();
 
         return dto;
@@ -65,6 +64,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void remove(Long pno) {
 
+        //삭제하기 전에 조회하기.
         Product product = productRepository.selectOne(pno);
 
         product.changeDel(true);
@@ -72,7 +72,8 @@ public class ProductServiceImpl implements ProductService {
         productRepository.save(product);
 
         List<String> fileNames =
-                product.getImages().stream().map(pi -> pi.getFname()).collect(Collectors.toList());
+                product.getImages().stream().map(pi
+                        -> pi.getFname()).collect(Collectors.toList());
 
         fileUploader.removeFiles(fileNames);
     }
@@ -90,7 +91,8 @@ public class ProductServiceImpl implements ProductService {
         product.changePrice(productDTO.getPrice());
 
         // product에서 기존 이미지 목록들을 가져온다. -- 나중에 비교해서 삭제.
-        List<String> oldFileNames = product.getImages().stream().map(pi -> pi.getFname()).collect(Collectors.toList());
+        List<String> oldFileNames = product.getImages().stream().map(pi
+                -> pi.getFname()).collect(Collectors.toList());
 
         // 이미지들은 clearImages( ) 한 후에.
         product.clearImages();
@@ -98,12 +100,11 @@ public class ProductServiceImpl implements ProductService {
         // 이미지 문자열들을 추가 addImages( ).
         productDTO.getImages().forEach(fname -> product.addImage(fname));
 
-        log.info("--------------------------------------");
-        log.info("--------------------------------------");
+        log.info("--------------------");
+        log.info("--------------------");
         log.info(product);
-
-        log.info("--------------------------------------");
-        log.info("--------------------------------------");
+        log.info("--------------------");
+        log.info("--------------------");
 
         productRepository.save(product);
         // save( ).
@@ -114,7 +115,7 @@ public class ProductServiceImpl implements ProductService {
                 .filter(f -> newFiles.indexOf(f) == -1)
                 .collect(Collectors.toList());
 
-        log.info("=======================================");
+        log.info("--------------------");
         log.info(wantDeleteFiles);
 
         fileUploader.removeFiles(wantDeleteFiles);

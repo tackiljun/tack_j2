@@ -20,6 +20,7 @@ public class ProductDTO {
     private String pdesc;
     private int price;
 
+    // DB용도.
     @Builder.Default
     private List<String> images = new ArrayList<>();
 

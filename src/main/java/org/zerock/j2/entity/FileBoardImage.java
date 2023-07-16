@@ -28,9 +28,8 @@ public class FileBoardImage {
 
     private int ord;
 
-    public void changeOrd (int ord){
+    public void changeOrd (int ord) {
         this.ord = ord;
     }
-    
-
+    // 게시판에서 이미지 순번정하는 메소드.
 }

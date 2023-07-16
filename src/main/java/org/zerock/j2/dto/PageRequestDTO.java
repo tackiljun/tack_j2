@@ -4,16 +4,16 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.ToString;
 
+
 @Data
 @ToString
 public class PageRequestDTO {
 
-    
+    // Default값이 필요.
     private int page = 1;
     private int size = 10;
     private String type;
     private String keyword;
-
 
     public PageRequestDTO() {
         this(1, 10);
@@ -29,5 +29,4 @@ public class PageRequestDTO {
         this.type = type;
         this.keyword = keyword;
     }
-    
 }

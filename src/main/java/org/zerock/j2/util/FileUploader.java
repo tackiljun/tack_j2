@@ -16,10 +16,12 @@ import org.springframework.web.multipart.MultipartFile;
 import lombok.extern.log4j.Log4j2;
 import net.coobird.thumbnailator.Thumbnailator;
 
+
 @Component
 @Log4j2
 public class FileUploader {
 
+    // 예외정의된 파일이 없으면 예외발생.
     public static class UploadException extends RuntimeException {
 
         public UploadException(String msg) {
@@ -33,9 +35,10 @@ public class FileUploader {
     public void removeFiles(List<String> fileNames) {
 
         if(fileNames == null || fileNames.size() == 0) {
-            return;
+            throw  new UploadException(("Files do not axist"));
         }
 
+        // forLoop.
         for (String fname: fileNames) {
 
             File original = new File(path, fname);
@@ -57,22 +60,20 @@ public class FileUploader {
         List<String> uploadFileNames = new ArrayList<>();
 
         log.info("path: " + path);
-
         log.info(files);
 
-        // loop
+        // loop.
         for (MultipartFile mFile : files) {
 
             String originalFileName = mFile.getOriginalFilename();
             String uuid = UUID.randomUUID().toString();
-
             String saveFileName = uuid+"_"+originalFileName;
 
             File saveFile = new File(path, saveFileName);
 
             try (InputStream in = mFile.getInputStream();
-                 OutputStream out = new FileOutputStream(saveFile);
-            ) {
+                 OutputStream out = new FileOutputStream(saveFile);) {
+
                 FileCopyUtils.copy(in, out);
 
                 // 썸네일이 필요하다면.
@@ -88,7 +89,6 @@ public class FileUploader {
                 throw new UploadException("Upload Fail:" + e.getMessage());
             }     
         }
-
         return uploadFileNames;
     }
     
