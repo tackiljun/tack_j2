@@ -5,6 +5,7 @@ import java.util.stream.IntStream;
 
 import lombok.Data;
 
+
 @Data
 public class PageResponseDTO<E> {
     
@@ -22,6 +23,7 @@ public class PageResponseDTO<E> {
 
     // JPA의 페이지인프리? 와 비슷하다.
     public PageResponseDTO(List<E> dtoList, long totalCount, PageRequestDTO pageRequestDTO) {
+
         this.dtoList = dtoList;
         this.totalCount = totalCount;
         this.requestDTO = pageRequestDTO;
@@ -42,8 +44,8 @@ public class PageResponseDTO<E> {
 
         this.next = (this.end * this.size) < totalCount;
 
+        // pageNums 처리하자.
         this.pageNums = IntStream.rangeClosed(start, end).boxed().toList();
-
     }
 
     

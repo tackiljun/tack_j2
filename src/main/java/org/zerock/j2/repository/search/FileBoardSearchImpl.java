@@ -38,26 +38,26 @@ public class FileBoardSearchImpl extends QuerydslRepositorySupport implements Fi
   @Override
   public PageResponseDTO<FileBoardListDTO> list(PageRequestDTO pageRequestDTO) {
 
-    //Q로 선언.
+    // Q로 선언.
     QFileBoard board = QFileBoard.fileBoard;
     QFileBoardImage boardImage = QFileBoardImage.fileBoardImage;
 
-    //query 선언 select.
+    // query 선언 select.
     JPQLQuery<FileBoard> query = from(board);
-    //left outer join.
-    //같은 조건이 없으므로 on조건을 사용할 수 없다.
-    //그래서 조인을 할 수 없다.
+    // left outer join.
+    // 같은 조건이 없으므로 on조건을 사용할 수 없다.
+    // 그래서 join을 할 수 없다.
     query.leftJoin(board.images, boardImage);
 
     query.where(boardImage.ord.eq(0));
 
-    //boardImage의 ord가 0인걸로 where.
+    // boardImage의 ord가 0인걸로 where.
     //query.where(boardImage.ord.eq(0));
 
-    //페이지가 음수값이면 0으로 초기화.
+    // 페이지가 음수값이면 0으로 초기화.
     int pageNum = pageRequestDTO.getPage() - 1 < 0 ? 0 : pageRequestDTO.getPage() - 1;
 
-    //페이징처리.
+    // 페이징처리.
     Pageable pageable = PageRequest.of(
       pageNum,
       pageRequestDTO.getSize(), 
@@ -73,8 +73,8 @@ public class FileBoardSearchImpl extends QuerydslRepositorySupport implements Fi
     //   log.info(fb.getImages());
     // });
 
-    JPQLQuery<FileBoardListDTO> listQuery =  query.select( Projections.bean(
-                    FileBoardListDTO.class,
+    JPQLQuery<FileBoardListDTO> listQuery =  query.select(
+            Projections.bean(FileBoardListDTO.class,
                     board.bno,
                     board.title,
                     boardImage.uuid,
@@ -85,5 +85,4 @@ public class FileBoardSearchImpl extends QuerydslRepositorySupport implements Fi
 
         return new PageResponseDTO(list, totalCount, pageRequestDTO);
   }
-
 }
