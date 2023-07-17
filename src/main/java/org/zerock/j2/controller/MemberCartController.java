@@ -2,9 +2,12 @@ package org.zerock.j2.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.zerock.j2.dto.MemberCartDTO;
+import org.zerock.j2.service.MemberCartService;
+
+import java.util.List;
+
 
 @RestController
 @RequiredArgsConstructor
@@ -12,4 +15,24 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin
 @RequestMapping("/api/cart/")
 public class MemberCartController {
+
+    private final MemberCartService cartService;
+
+    // 담아둔 목록 데이터.
+    @PostMapping("add")
+    public List<MemberCartDTO> add(@RequestBody MemberCartDTO memberCartDTO) {
+
+        log.info("param: " + memberCartDTO);
+
+        return cartService.addCart(memberCartDTO);
+    }
+
+    @GetMapping("{email}")
+    public  List<MemberCartDTO> get(@PathVariable("email") String email) {
+
+        return cartService.getCart(email);
+    }
+
+
+
 }
