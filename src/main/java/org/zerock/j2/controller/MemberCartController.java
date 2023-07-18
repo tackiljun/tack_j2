@@ -32,7 +32,4 @@ public class MemberCartController {
 
         return cartService.getCart(email);
     }
-
-
-
 }

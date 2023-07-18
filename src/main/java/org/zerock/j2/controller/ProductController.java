@@ -96,5 +96,4 @@ public class ProductController {
 
         return Map.of("result", 111L);
     }
-
 }
