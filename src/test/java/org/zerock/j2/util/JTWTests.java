@@ -24,4 +24,16 @@ public class JTWTests {
 
         System.out.println(jwtStr);
     }
+
+    @Test
+    public void testToken() {
+        String token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InVzZXJAYWFhLmNvbSIsImlhdCI6MTY4OTc0NDQwMywiZXhwIjoxNjg5NzQ1MDAzfQ.Wj3D16uPU5TvLtnhKDHKlKV7ggkk9Xs6ePYxqPUC6oM";
+
+        try {
+
+            jwtUtil.validateToken(token);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
 }
