@@ -39,6 +39,7 @@ public class MemberController {
         return memberDTO;
     }
 
+
     @PostMapping("login")
     public MemberDTO login(@RequestBody MemberDTO memberDTO){
 
@@ -54,6 +55,16 @@ public class MemberController {
                 memberDTO.getEmail(),
                 memberDTO.getPw()
         );
+
+        // AccessToken 시간정하기?시간만들기?.
+        result.setAccessToken(
+                jwtUtil.generate(
+                        Map.of("email", result.getEmail()), 10));
+
+        // RefreshToken 시간정하기?시간만들기?.
+        result.setRefreshToken(
+                jwtUtil.generate(
+                        Map.of("email", result.getEmail()), 60*24));
 
         log.info("Return: " + result);
 
