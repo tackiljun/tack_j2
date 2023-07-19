@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import org.zerock.j2.dto.MemberDTO;
 import org.zerock.j2.service.MemberService;
 import org.zerock.j2.service.SocialService;
+import org.zerock.j2.util.JWTUtil;
 
 import java.util.Map;
 
@@ -19,6 +20,8 @@ public class MemberController {
     private final MemberService memberService;
 
     private final SocialService socialService;
+
+    private final JWTUtil jwtUtil;
 
     @GetMapping("kakao")
     public MemberDTO getAuthCode(String code) {
