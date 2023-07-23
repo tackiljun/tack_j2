@@ -49,6 +49,8 @@ public class JWTInterceptor implements HandlerInterceptor {
 
             //JSON 문자열은 {"키(key)" : "값(value)"}.
             //String str = "{\"error\" : }";
+            // 401 상태코드 주기
+            // response.setStatus(HttpStatus.UNAUTHORIZED.value());
 
             Gson gson = new Gson();
 
